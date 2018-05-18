@@ -10,4 +10,4 @@ test:
   bucket: "dealer-test"
 production:
   <<: *defaults
-  bucket: "dealer-production"
+  bucket: <%=ENV["AWS_BUCKET"]%>
