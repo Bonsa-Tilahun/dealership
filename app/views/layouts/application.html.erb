@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="JJCXN45P-paU_9motX7aaXI7AM7Jf4lfHYbHZAAAsvo" />
+  <title><%= content_for?(:title) ? yield(:title) : "Iman Auto Dealership" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Iman Auto Dealership" %>">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render 'layouts/navigation' %>
+<div class="container">
+
+  <%= render 'layouts/messages' %>
+  <%= yield %>
+</div>
+</body>
+</html>

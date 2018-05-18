@@ -1,0 +1,33 @@
+// Place all the styles related to the vehicles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.vehicle-listing {
+  @include box-shadow(white 3px 3px 10px);
+
+  .title-row {
+    @extend .row;
+    margin-top: -10px;
+  }
+
+  .vehicle-label {
+    color: grey;
+  }
+
+  .carousel {
+    margin-top: 20px;
+  }
+  .item .thumb {
+    width: 25%;
+    cursor: pointer;
+    float: left;
+  }
+  .item .thumb img {
+    width: 100%;
+    margin: 2px;
+  }
+  .item img {
+    width: 100%;
+  }
+}
+

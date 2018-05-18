@@ -1,0 +1,108 @@
+
+
+
+<div class="row text-center">
+  <h1><%= vehicle_title @vehicle %></h1>
+
+</div>
+<!-- Technique from http://codepen.io/gumetis/pen/pbLyD -->
+<div class="panel panel-default vehicle-listing">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <% unless @vehicle.images.present? %>
+          <div class="text-center">
+            <i class="fa fa-car fa-5x"></i>
+            <p>Image Not Available</p>
+          </div>
+        <% else %>
+          <div id="carousel<%= @vehicle.id %>" class="carousel slide" data-ride="carousel" data-interval="5000">
+            <div class="carousel-inner">
+              <% vehicle_images_in_display_order(@vehicle).each_with_index do |image, index| %>
+                  <div class="item <%= 'active' if index == 0 %> ">
+                  <%= image_tag(image.direct_upload_url, class: 'img-responsive') %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="clearfix">
+            <div id="thumbcarousel<%= @vehicle.id %>" class="carousel slide" data-interval="false">
+              <div class="carousel-inner">
+                <% iter = 0 %>
+                <% vehicle_images_in_display_order(@vehicle).each_slice(4) do |image_array| %>
+                  <div class="item <%= 'active' if iter == 0 %>">
+                    <% image_array.each_with_index do |image, index| %>
+                      <div data-target="#carousel<%= @vehicle.id %>" data-slide-to="<%= (iter * 4) + index %>" class="thumb">
+                        <%= image_tag(image.direct_upload_url, class: 'img-responsive') %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <% iter += 1 %>
+                <% end %>
+              </div>
+              <a class="left carousel-control" href="#thumbcarousel<%= @vehicle.id %>" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#thumbcarousel<%= @vehicle.id %>" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <div class="row text-center">
+          <h3><%= humanized_money_with_symbol @vehicle.asking_price %></h3>
+        </div>
+        <% %w(vin mileage exterior_color interior_color transmission body_style drivetrain engine options comments).each do |attr| %>
+          <div class="row">
+            <div class="col-md-3 vehicle-label">
+              <%= attr.humanize.titleize %>
+            </div>
+            <div class="col-md-9">
+              <%= @vehicle.send(attr) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <%= link_to vehicles_path, class: "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to Vehicles List
+  <% end %>
+  <% if current_user&.admin? %>
+    <%= link_to edit_vehicle_path(@vehicle), class: "btn btn-primary" do %>
+      <i class="fa fa-pencil"></i> Edit Vehicle
+    <% end %>
+    <%= link_to archive_vehicle_path(@vehicle), method: :patch, class: "btn btn-warning" do %>
+      <i class="fa fa-times"></i> Archive Vehicle
+    <% end %>
+    <%= link_to vehicle_path(@vehicle), method: :delete, class: "btn btn-danger" do %>
+      <i class="fa fa-trash-o"></i> Delete Vehicle
+    <% end %>
+  <% end %>
+</div>
+
+<% if current_user&.admin? %>
+  <div class="row">
+    &nbsp;
+  </div>
+  <div class="row">
+    <dl class="dl-horizontal">
+      <dt>Archive</dt>
+      <dd>
+        This prevents customers from viewing this vehicle on the website but does not remove the record of the vehicle
+        from the database. This action is typically taken when a vehicle is sold.
+      </dd>
+      <dt>Delete</dt>
+      <dd>
+        This prevents customers from viewing this vehicle on the website and completely removes the reocrd of the
+        vehicle from the database. This action is typically taken for "test" vehicles or vehicles that do not go through the
+        normal sales process (and thus should not be recorded).
+      </dd>
+    </dl>
+  </div>
+<% end %>

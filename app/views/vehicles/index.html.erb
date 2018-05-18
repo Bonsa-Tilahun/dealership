@@ -1,0 +1,46 @@
+
+
+<% @vehicles.each do |vehicle| %>
+  <div class="panel panel-default vehicle-listing">
+    <div class="panel-body">
+      <%= link_to vehicle_path(vehicle) do %>
+        <div class="title-row">
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <h3><%= vehicle_title vehicle %></h3>
+          </div>
+          <div class="col-md-4 text-right">
+            <h4><%= humanized_money_with_symbol vehicle.asking_price %></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 text-center">
+            <% if vehicle.primary_image %>
+              <%= image_tag(vehicle_main_image(vehicle), class: 'img-thumbnail') %>
+            <% else %>
+              <i class="fa fa-car fa-5x"></i>
+              <p>Image Not Available</p>
+            <% end %>
+          </div>
+          <div class="col-md-1">
+            <div class="vehicle-label">VIN</div><br>
+            <div class="vehicle-label">Mileage</div><br>
+            <div class="vehicle-label">Engine</div><br>
+            <div class="vehicle-label">Trans</div><br>
+            <div class="vehicle-label">Comments</div><br>
+          </div>
+          <div class="col-md-7">
+            <div><%= vehicle.vin %></div><br>
+            <div><%= vehicle.mileage %></div><br>
+            <div><%= vehicle.engine %></div><br>
+            <div><%= vehicle.transmission %></div><br>
+            <div><%= vehicle.comments %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<% if user_signed_in? %>
+            <%= link_to 'New Vehicle', new_vehicle_path %>
+<% end %>

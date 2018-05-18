@@ -1,0 +1,32 @@
+<%= form_for @contact do |f| %>
+  <div class="form-group">
+    <%= label(:contact, :name) %>
+    <%= f.text_field :name, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label(:contact, :email) %>
+    <%= f.text_field :email, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label(:contact, :subject) %>
+    <%= f.text_field :subject, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label(:contact, :message) %>
+    <%= f.text_area :message, required: true, class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Submit', class: 'btn btn-default' %>
+<% end %>
+
+<div class="row margin-top-50 margin-horizontal-0">
+  <p>For more information, feel free to reach out to us. <%= link_to '555-555-5555', 'tel:555-555-5555' %></p>
+</div>
+
+<div class="row margin-horizontal-0">
+  <p>
+    Bob saget<br>
+    Iman Auto<br>
+    Auto Broker and Consultant<br>
+    <%= link_to '555-555-5555', 'tel:555-555-5555' %>
+  </p>
+</div>
