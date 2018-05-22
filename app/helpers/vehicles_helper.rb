@@ -1,7 +1,7 @@
 module VehiclesHelper
   def vehicle_main_image(vehicle)
     image = vehicle.primary_image || vehicle.images.first
-    image.direct_upload_url
+    image.image.url #direct_upload_url
   end
 
   def vehicle_title(vehicle)

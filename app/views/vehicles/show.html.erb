@@ -33,7 +33,7 @@
                   <div class="item <%= 'active' if iter == 0 %>">
                     <% image_array.each_with_index do |image, index| %>
                       <div data-target="#carousel<%= @vehicle.id %>" data-slide-to="<%= (iter * 4) + index %>" class="thumb">
-                        <%= image_tag(image.direct_upload_url, class: 'img-responsive') %>
+                        <%= image_tag(image.image.url, class: 'img-responsive') %>
                       </div>
                     <% end %>
                   </div>
