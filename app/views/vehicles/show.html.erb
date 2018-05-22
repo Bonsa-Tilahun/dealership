@@ -20,7 +20,7 @@
             <div class="carousel-inner">
               <% vehicle_images_in_display_order(@vehicle).each_with_index do |image, index| %>
                   <div class="item <%= 'active' if index == 0 %> ">
-                  <%= image_tag(image.direct_upload_url, class: 'img-responsive') %>
+                  <%= image_tag(image.image.url, class: 'img-responsive') %>
                 </div>
               <% end %>
             </div>
