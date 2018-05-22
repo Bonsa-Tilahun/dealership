@@ -10,4 +10,4 @@ test:
   bucket: "dealer-test"
 production:
   <<: *defaults
-  bucket: 'dealership-iman'
+  bucket: 'dealership-iman-prod'
